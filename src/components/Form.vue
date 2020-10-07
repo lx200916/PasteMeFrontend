@@ -66,7 +66,7 @@
                     lang: 'plain',
                     content: null,
                     password: 0,
-                },
+                },content:'',
                 read_once: []
             }
         },
@@ -77,11 +77,15 @@
                     key = this.$route.params.key;
                 } else if (this.read_once.length > 0) {
                     key = "once"
-                }else if (this.password.length>0){
-                    this.form.password=1;
-                    this.form.content=CryptoJS.AES.encrypt("#pasteme#"+this.form.content,this.password)
                 }
-                const sendArgs = [`${this.$store.getters.config.api.backend}${key}`, this.form];
+                if (this.password.length>0){
+                    this.form.password=1;
+
+                    this.content=CryptoJS.AES.encrypt("#pasteme#"+this.form.content,this.password).toString()
+                }else {
+                  this.content=this.form.content
+                }
+                const sendArgs = [`${this.$store.getters.config.api.backend}${key}`, {lang:this.form.lang,password:this.form.password,content:this.content}];
                 const sendFunc = key === "" || key === "once" ? this.api.post : this.api.put;
                 sendFunc(...sendArgs).then(response => {
                     if (response.status === 201) {

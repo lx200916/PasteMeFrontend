@@ -16,9 +16,9 @@
                     </li>
                     <li>{{ $t('lang.success.ul.li[1].browser') }}
                         <a v-b-tooltip.hover="$t('lang.success.ul.li[1].tooltip')"
-                           :href="base_url + key"
+                           :href="base_url + ( '000' + key ).substr(-3,3)"
                            target="_blank">
-                            {{ base_url + key }}
+                            {{ base_url + ( "000" + key ).substr(-3,3) }}
                         </a>&nbsp;<b-badge
                                 variant="info"
                                 class="badge-fixed"
