@@ -18,6 +18,8 @@
 </template>
 
 <script>
+
+    import CryptoJS from 'crypto-js';
     import stateMixin from "../assets/js/mixins/stateMixin";
     export default {
         name: "PasswordAuth",
@@ -32,19 +34,28 @@
         },
         methods: {
             onSubmit() {
-                const sendUrl = `${this.$store.getters.config.api.backend}${this.$route.params.key},${this.form.password}`;
-                this.api.get(sendUrl, {
-                    json: 'true'
-                }).then(({status, content, lang}) => {
-                    if (status === 200) {
-                        this.updateContent(content);
-                        this.updateLang(lang === "plain" ? "plaintext" : lang);
-                        this.updateView("paste_view");
-                    } else {
-                        this.flag = false;
-                        this.form.password = null;
-                    }
-                });
+                // const sendUrl = `${this.$store.getters.config.api.backend}${this.$route.params.key},${this.form.password}`;
+                // this.api.get(sendUrl, {
+                //     json: 'true'
+                // }).then(({status, content, lang}) => {
+                //     if (status === 200) {
+                //         this.updateContent(content);
+                //         this.updateLang(lang === "plain" ? "plaintext" : lang);
+                //         this.updateView("paste_view");
+                //     } else {
+                //         this.flag = false;
+                //         this.form.password = null;
+                //     }
+                // });
+                let enc=CryptoJS.AES.decrypt(this.$store.getters.content(),this.form.password).toString();
+                if (enc.substring(0,9)==="#pasteme#"){
+                            this.updateContent(enc.substring(9));
+                            // this.updateLang(lang === "plain" ? "plaintext" : lang);
+                            this.updateView("paste_view");
+                }else {
+                            this.flag = false;
+                            this.form.password = null;
+                        }
             }
         }
     }

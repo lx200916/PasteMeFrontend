@@ -21,7 +21,7 @@
                         </b-form-group>
                         <b-form-group>
                             <b-input-group :prepend="$t('lang.form.input[1].prepend')">
-                                <b-form-input type="password" autocomplete="off" v-model="form.password"
+                                <b-form-input type="password" autocomplete="off" v-model="password"
                                               :placeholder="$t('lang.form.input[1].placeholder')"></b-form-input>
                             </b-input-group>
                         </b-form-group>
@@ -55,16 +55,17 @@
 </template>
 
 <script>
+    import CryptoJS  from 'crypto-js'
     import stateMixins from "../assets/js/mixins/stateMixin";
     export default {
         name: "Form",
         mixins: [stateMixins],
         data() {
-            return {
+            return {password:'',
                 form: {
                     lang: 'plain',
                     content: null,
-                    password: null,
+                    password: 0,
                 },
                 read_once: []
             }
@@ -76,6 +77,9 @@
                     key = this.$route.params.key;
                 } else if (this.read_once.length > 0) {
                     key = "once"
+                }else if (this.password.length>0){
+                    this.form.password=1;
+                    this.form.content=CryptoJS.AES.encrypt("#pasteme#"+this.form.content,this.password)
                 }
                 const sendArgs = [`${this.$store.getters.config.api.backend}${key}`, this.form];
                 const sendFunc = key === "" || key === "once" ? this.api.post : this.api.put;

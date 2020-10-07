@@ -49,7 +49,10 @@
                             this.updateContent(response.content);
                             this.updateLang(response.lang === "plain" ? "plaintext" : response.lang);
                         } else if (response.status === 401) {
+                            this.updateLang(response.lang === "plain" ? "plaintext" : response.lang);
+                            this.updateContent(response.content);
                             this.updateView("password_auth");
+
                         } else if (response.status === 403) {
                             this.updateView("manual_deleted");
                         } else if (response.status === 404 && this.$route.params.key.search("[a-zA-Z]{1}") !== -1) {

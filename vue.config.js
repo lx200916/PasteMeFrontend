@@ -40,7 +40,8 @@ const cdn = {
             "https://cdn.jsdelivr.net/npm/markdown-it@9.1.0/dist/markdown-it.min.js",
             "https://cdn.jsdelivr.net/npm/unorm@1.6.0/lib/unorm.min.js",
             "https://cdn.jsdelivr.net/npm/@chenfengyuan/vue-qrcode@1.0.1/dist/vue-qrcode.min.js",
-            "https://cdn.jsdelivr.net/npm/vue-i18n@8.14.0/dist/vue-i18n.min.js"
+            "https://cdn.jsdelivr.net/npm/vue-i18n@8.14.0/dist/vue-i18n.min.js",
+            "https://npm.elemecdn.com/crypto-js@4.0.0/crypto-js.js"
         ]
     }
 };
@@ -76,7 +77,7 @@ module.exports = {
                 "markdown-it": "markdownit",
                 "unorm": "unorm",
                 "@chenfengyuan/vue-qrcode": "VueQrcode",
-                "vue-i18n": "VueI18n"
+                "vue-i18n": "VueI18n","crypto-js":"CryptoJS"
             };
         }
         return {
