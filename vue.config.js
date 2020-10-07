@@ -51,7 +51,8 @@ module.exports = {
         proxy: {
             "/_api": {
                 secure: false,
-                target: "http://dev.pasteme.lucien.ink/_api",
+                target: "http://localhost:8000",
+                pathRewrite: {'^/_api/backend': ''},
                 changeOrigin: true
             }
         }
@@ -77,7 +78,8 @@ module.exports = {
                 "markdown-it": "markdownit",
                 "unorm": "unorm",
                 "@chenfengyuan/vue-qrcode": "VueQrcode",
-                "vue-i18n": "VueI18n","crypto-js":"CryptoJS"
+                "vue-i18n": "VueI18n",
+                "crypto-js": "CryptoJS"
             };
         }
         return {
